@@ -37,37 +37,21 @@ void loop() {
 
   RFID_String=readRFID();
   
-  if(RFID_String!=""&&RFID_String.length()==8){
+  if(RFID_String!=""){
     //Write to BT
-    BT_Serial.println(RFID_String);
+    esp32_Serial.print(RFID_String);
+    //esp32_Serial.println();
     Serial.println(RFID_String);
   }
   RFID_String="";
-    
-  while(BT_Serial.available()>0) {
-    character = (char)BT_Serial.read();
-    delay(1); //wait for the next byte, if after this nothing has arrived it means the text was not part of the same stream entered by the user
-    App_Data+=character;
-  }
-
-  
-  if(App_Data.length()>9){
-    //Serial.println(App_Data);   
-    //Write to Server
-    esp32_Serial.print(App_Data);
-    esp32_Serial.println();
-    //BT_Serial.println(App_Data);
-    Serial.println(App_Data);
-  }
-  
+/*
   while(esp32_Serial.available()>0){
-   
+ 
     character = (char)esp32_Serial.read();
     delay(1); //wait for the next byte, if after this nothing has arrived it means the text was not part of the same stream entered by the user
     ESP_Data+=character;
-  }
-  if(ESP_Data!="")
-    BT_Serial.print(ESP_Data);
+  }*/
+  
   ESP_Data="";
   App_Data="";
   Tracking_Data="";
